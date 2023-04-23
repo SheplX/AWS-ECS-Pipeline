@@ -1,0 +1,7 @@
+{
+    "LAUNCH_TYPE"      : "EC2",
+    "MEDICAL_SERVICE"  : "Medical",
+    "SECURITY_SERVICE" : "Security",
+    "NODE_ENV"         : "dev",
+    "PORT"             : "5000"
+}
