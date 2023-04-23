@@ -1,0 +1,7 @@
+{
+    "LAUNCH_TYPE"     : "Fargate",
+    "PAYMENT_SERVICE" : "Payment",
+    "FINANCE_SERVICE" : "Finance",
+    "NODE_ENV"        : "dev",
+    "PORT"            : "5001"
+}
