@@ -30,9 +30,21 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
         - creates a security group for the application load balancer opened on port 80.
     - `Alb`
         - creates an Application load balancer with all its components.
+        - the alb will be published across the public subnets.
         - target group will be created for each service defined with a different target group type for each service type. so if Fargate, then it will create a target group with IP type, if EC2, it will create a target group with instance type. and the ability to configure special health check configurations for each service.
         - listener with default action response with a simple msg if the user visited a page with an unknown path pattern defined.
         - listener rules to configure for each service rules like what kind of action will be used and with which condition. here I used forward action to forward the traffic to each service target group and the condition will be if it matches a specific path pattern according to each service case.
     - `Route53`
         - for creating a custom record type A and binding it to the load balancer.
         - because I have a predefined hosted zone I just used a data resource with the hosted zone name to get the hosted zone ID which is required to add the record to it.
+    - `S3`
+        - to store the Terraform State.
+
+# Application
+- I made a simple node.js app to simulate the routing with a path pattern idea.
+- my idea is to have 2 applications each one will have 2 different services and each service will be called by a different path pattern.
+- each service will be configured with variables that will provide some details about the service such as the launch type of the service, the service name, the node env, and the service port.
+- `Service A` - will have `Medical` and `Security` services.
+- `Service B` - will have `Finance` and `Payment` services.
+
+ 
