@@ -46,3 +46,4 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
 - each service will be configured with variables that will provide some details about the service such as the launch type of each service, service name, node env, and service port.
 - `Service A` - will have `Medical` and `Security` services.
 - `Service B` - will have `Finance` and `Payment` services.
+- each service can read its values from a json file as a try to let everything dynamically changeable from the pipeline.
