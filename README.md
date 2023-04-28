@@ -22,7 +22,7 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
         - auto-scaling group assigned with the previous launch configuration with some additional configs like target group, max & min number of launched instances.
         - Cloudwatch for creating several groups for each service for getting the container logs.
         - task definition will have a specific config according to each service case, setting each service with Cloudwatch group, the ability to choose service type if Fargate or ec2.
-        - service template with launch type option configured with the previous task definition and have 2 resources, the capacity provider will be created & assigned for any service with EC2 launch type only and it's required for best cost plan so only launched instances will be those which required by the service only and for making sure that no any unused instances are active. if Fargate then the second resource network configuration will be applied. the load balancer resource for both service types for adding each service to its specific target group with the container name & port.
+        - service template with launch type option configured with the previous task definition and have 2 resources, the capacity provider will be created & assigned for any service with EC2 launch type only and it's required for the best cost plan so only launched instances will be those which required by the service only and for making sure that no any unused instances are active. if Fargate then the second resource network configuration will be applied. the load balancer resource for both service types for adding each service to its specific target group with the container name & port.
         - auto-scaling target configured with 2 policies:
             - `Memory` & `CPU` - both will watch the service memory and ram metrics. if it is more than 75 % then a new replica will be launched to handle the traffic and when it goes less than 75% it will dynamically terminate the additional replica and keep only one.
             - this is very important for dynamically scaling up / down according to the traffic being handled by a service and for making sure about high availability for each service also for keeping the best cost optimization plan.
@@ -46,4 +46,4 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
 - each service will be configured with variables that will provide some details about the service such as the launch type of each service, service name, node env, and service port.
 - `Service A` - will have `Medical` and `Security` services.
 - `Service B` - will have `Finance` and `Payment` services.
-- each service can read its values from a json file as a try to let everything dynamically changeable from the pipeline.
+- each service can read its values during the deployment process from a JSON file as a try to let everything dynamically changeable from the pipeline.
