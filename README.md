@@ -51,6 +51,50 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
 
 # Installation
 - The infrastructure will serve 2 services. each service will be configured with a custom launch type, variables, capacity, replica count, target groups, and auto-scaling policies.
-- `Service A` - will be launched with EC2 launch type and will be listened to on port 5000, it will have the Medical and Security services.
-- `Service B` - will be launched with Fargate launch type and will be listened to on port 5001, it will have the Payment and Finance services.
+- `Service A` - will be launched with EC2 launch type and will be listened to on port 5000 and registered on Instance target group, it will have the Medical and Security services.
+- `Service B` - will be launched with Fargate launch type and will be listened to on port 5001 and registered on IP target group, it will have the Payment and Finance services.
 - I made a default config for the health check that will be applied in case we do not want to set a custom config like health threshold, unhealthy threshold, timeout, or interval. these options are very important sometimes in case the application needs more time to be up and running, we will need to determine and configure the right time so that the health check can consider the service as healthy.
+
+![terraform-apply](./screenshots/terraform-apply.png)
+![terraform-apply-1](./screenshots/terraform-apply-1.png)
+
+- Network
+
+![network](./screenshots/network.png)
+
+- Cluster
+
+![cluster](./screenshots/cluster.png)
+![cluster-1](./screenshots/cluster-1.png)
+![cluster-2](./screenshots/cluster-2.png)
+![cluster-3](./screenshots/cluster-3.png)
+![cluster-4](./screenshots/cluster-4.png)
+
+- Service A - EC2 service
+
+![service-a](./screenshots/service-a.png)
+![service-a-1](./screenshots/service-a-1.png)
+
+- Service B - Fargate service
+
+![service-b](./screenshots/service-b.png)
+![service-b-1](./screenshots/service-b-1.png)
+
+- CloudWatch
+
+![cloudwatch](./screenshots/cloudwatch.png)
+
+- Loadbalancer
+
+![lb](./screenshots/lb.png)
+![lb-1](./screenshots/lb-1.png)
+![lb-2](./screenshots/lb-2.png)
+![lb-3](./screenshots/lb-3.png)
+
+- Route53
+
+![route53](./screenshots/route53.png)
+
+- ECR
+
+![ecr](./screenshots/ecr.png)
