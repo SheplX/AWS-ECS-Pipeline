@@ -46,4 +46,11 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
 - each service will be configured with variables that will provide some details about the service such as the launch type of each service, service name, node env, and service port.
 - `Service A` - will have `Medical` and `Security` services.
 - `Service B` - will have `Finance` and `Payment` services.
-- each service can read its values during the deployment process from a JSON file as a try to let everything dynamically changeable from the pipeline.
+- each service will have a custom path will be configured for the target group to simulate the health check idea.
+- each service can read its values during the service update process from a JSON file as a try to let everything dynamically changeable from the pipeline.
+
+# Installation
+- The infrastructure will serve 2 services. each service will be configured with a custom launch type, variables, capacity, replica count, target groups, and auto-scaling policies.
+- `Service A` - will be launched with EC2 launch type and will be listened to on port 5000, it will have the Medical and Security services.
+- `Service B` - will be launched with Fargate launch type and will be listened to on port 5001, it will have the Payment and Finance services.
+- I made a default config for the health check that will be applied in case we do not want to set a custom config like health threshold, unhealthy threshold, timeout, or interval. these options are very important sometimes in case the application needs more time to be up and running, we will need to determine and configure the right time so that the health check can consider the service as healthy.
