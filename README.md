@@ -164,7 +164,7 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
     - let's see if Cloudwatch can scrape each service log. here we can see that the health check path hits the service each second and each service path pattern
     ![service-a-logs](./screenshots/service-a-logs.png)
     ![service-b-logs](./screenshots/service-b-logs.png)
-    - this means that Cloudwatch started to store the logs for each service, we can check each service log streams from the Cloudwatch section
+    - this means that Cloudwatch started to store the logs for each service, we can check each service log streams from the Cloudwatch service
     ![watch-a](./screenshots/watch-a.png)
     ![watch-b](./screenshots/watch-b.png)
 
