@@ -98,3 +98,41 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
 - ECR
 
 ![ecr](./screenshots/ecr.png)
+
+
+# Jenkins pipeline
+
+- I prepared 2 pipelines, each pipeline configured to build an image from a specific service folder and read the config file of each service so that the pipeline can read the service values and then apply them during the service update.
+- because I use Kubernetes, I configured the pipeline to create a Kubernetes agent that has aws-cil and docker commands.
+- both pipelines of each service will have the same process, for example, I will pick the service B pipeline and demonstrate it.
+
+![pipeline](./screenshots/pipeline.png)
+
+- The stages consist of 3 stages.
+
+    - `Stage 1` - it will build & tag the docker image for each service.
+   
+    ![pipeline-1](./screenshots/pipeline-1.png)
+
+    - `Stage 2` - using the AWS credentials, it will retrieve an authentication token and authenticate my Docker client to each registry then push the Docker image to each service registry.
+   
+    ![pipeline-2](./screenshots/pipeline-2.png)
+    
+    - `Stage 3` - once the new image has been built, it will be necessary to update the service with the new tag of the image. this stage will make several operations to update a service:
+        - `step 1` - using JQ tool, it will read each defined variable from the dedicated JSON file.
+    ![pipeline-3](./screenshots/pipeline-3.png)
+        - `step 2` - to create a new updated task definition, we need the current task definition template. this step will pull the current task definition of a dedicated service and store it on a variable.
+    ![pipeline-4](./screenshots/pipeline-4.png)
+        - `step 3` - after catching up a task definition template, we want to deregister the currently running task definition because we will release a new one. to perform this we need to know the current running task ARN and then fetch the task definition attached to it. this will make sure that we deregistered the currently running task definition.
+    ![pipeline-5](./screenshots/pipeline-5.png)
+        - `step 4` - using the first variable created in the second step, we will release a new task definition with some updates, this step will echo the task definition template and update it with the new image tag and values of the variables defined in the first step then delete some unwanted keys related to the old task definition revision. I used JQ tool because we are editing on JSON file format so this is the best option that could be used in my case to make sure that no syntax errors as it's very critical and would destroy all the steps if it appeared during the update.
+        - we can see the new image tag has been updated from `latest` to `2-service-b` and a new revision number `7` has been added.
+    ![pipeline-6](./screenshots/pipeline-6.png)
+        - `step 5` - after the new updated task definition is created, we must register it to the task definition section of the service.
+    ![pipeline-7](./screenshots/pipeline-7.png)
+        - `step 6` - this step will get the new revision number of the new task definition which was registered in the previous step then update the service with the new task definition : revision number.
+    ![pipeline-8](./screenshots/pipeline-8.png)
+
+- and the same update process for Service A :
+
+![pipeline-9](./screenshots/pipeline-9.png)
