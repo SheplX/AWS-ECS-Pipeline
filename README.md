@@ -136,3 +136,44 @@ Introducing a full deployment cycle of 2 different node.js apps with ECS cluster
 - and the same update process for Service A :
 
 ![pipeline-9](./screenshots/pipeline-9.png)
+
+- lets see what happened to each service after the update cycle.
+    - each image uploaded to each service registry
+    ![ecr-1](./screenshots/ecr-1.png)
+    ![ecr-2](./screenshots/ecr-2.png)
+    - Service B task definition revision 6 stopped and revision 7 is active
+    ![td-b](./screenshots/td-b.png)
+    ![td-b-1](./screenshots/td-b-1.png)
+    - same for Service A
+    ![td-a](./screenshots/td-a.png)
+    ![td-a-1](./screenshots/td-a-1.png)
+    - each service deployment case after updating each service task definition
+    ![deployment-a](./screenshots/deployment-a.png)
+    ![deployment-a-1](./screenshots/deployment-a-1.png)
+    ![deployment-b](./screenshots/deployment-b.png)
+    ![deployment-b-1](./screenshots/deployment-b-1.png)
+    - each service event
+    ![service-a-e](./screenshots/service-a-e.png)
+    ![service-b-e](./screenshots/service-b-e.png)
+    - check if each auto-scaling policy working for each service, here we can see that each service replica decreased to 1 because memory and ram metrics are less than 75 %
+    ![autoscaling-a](./screenshots/autoscaling-a.png)
+    ![autoscaling-b](./screenshots/autoscaling-b.png)
+    - each container config
+    ![service-a-env](./screenshots/service-a-env.png)
+    ![service-b-env](./screenshots/service-b-env.png)
+    - let's see if Cloudwatch can scrape each service log. here we can see that the health check path hits the service each second and each service path pattern
+    ![service-a-logs](./screenshots/service-a-logs.png)
+    ![service-b-logs](./screenshots/service-b-logs.png)
+    - this means that Cloudwatch started to store the logs for each service, we can check each service log streams from the Cloudwatch section
+    ![watch-a](./screenshots/watch-a.png)
+    ![watch-b](./screenshots/watch-b.png)
+
+- finally, let's check each service during the DNS record created on Route53
+    - Service A
+    ![s-a-m](./screenshots/s-a-m.png)
+    ![s-a-s](./screenshots/s-a-s.png)
+    - Service B
+    ![s-b-f](./screenshots/s-b-f.png)
+    ![s-b-p](./screenshots/s-b-p.png)
+    - if wrong / no path pattern
+    ![default-action](./screenshots/default-action.png)
