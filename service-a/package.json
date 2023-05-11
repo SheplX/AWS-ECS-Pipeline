@@ -1,0 +1,27 @@
+{
+    "name": "vca_micro_service",
+    "version": "1.0.0",
+    "description": "VCA Micro Service",
+    "main": "app.js",
+    "jest": {
+        "testEnvironment": "node",
+        "coveragePathIgnorePatterns": [
+            "/node_modules/"
+        ]
+    },
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "Kumaran",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "chalk": "^4.1.0",
+        "cors": "^2.8.5",
+        "dotenv": "^8.6.0",
+        "ejs": "^3.1.9",
+        "express": "^4.17.1",
+        "helmet": "^3.23.3",
+        "morgan": "^1.10.0"
+    }
+}

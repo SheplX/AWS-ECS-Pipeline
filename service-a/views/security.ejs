@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= service %></title>
+  </head>
+  <body style="text-align:center;background-color:#3333ff;font-weight:900;font-size:20px;font-family:Helvetica,Arial,sans-serif">
+    <img src="https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png">
+    <h1>Service: <%= service %> - Launch Type: <%= launchType %></h1>
+    <p>This container was deployed: <div id="date"></div></p>
+    <script>
+      var date = new Date();
+      document.getElementById("date").innerHTML=date.toLocaleString();
+    </script>
+  </body>
+</html>
